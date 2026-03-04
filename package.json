@@ -1,0 +1,19 @@
+{
+  "name": "cse431-contactsproject",
+  "version": "1.0.0",
+  "description": "CRUD using express, mongo, and swagger",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjg1993/cse431-contactsProject.git"
+  },
+  "author": "Kevin Guzman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kjg1993/cse431-contactsProject/issues"
+  },
+  "homepage": "https://github.com/kjg1993/cse431-contactsProject#readme"
+}
