@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kjg1993/cse431-contactsProject/issues"
   },
-  "homepage": "https://github.com/kjg1993/cse431-contactsProject#readme"
+  "homepage": "https://github.com/kjg1993/cse431-contactsProject#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
