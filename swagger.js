@@ -6,10 +6,9 @@ const doc = {
         description: 'API para la gestión de contactos',
         version: '1.0.0',
     },
-    host: 'localhost:3000',  // Mantenemos local para generación
+    host: 'localhost:3000',  
     schemes: ['http', 'https'],
     basePath: '/',
-    // Estos servers aparecerán en Swagger UI
     servers: [
         {
             url: 'http://localhost:3000',
