@@ -9,16 +9,17 @@
   "servers": [
     {
       "url": "http://localhost:3000",
-      "description": "Local server"
+      "description": "Development local server"
     },
     {
       "url": "https://cse431-contacts-8utb.onrender.com",
-      "description": "Production server on Render"
+      "description": "SProduction server on render"
     }
   ],
   "basePath": "/",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "paths": {
     "/api-docs": {

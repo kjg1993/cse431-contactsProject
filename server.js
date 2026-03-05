@@ -18,15 +18,43 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const isProduction = process.env.NODE_ENV === 'production';
+const renderUrl = 'https://cse431-contacts-8utb.onrender.com';
+
+
+const swaggerOptions = {
+    swaggerOptions: {
+        url: '/swagger.json', 
+        servers: [
+            {
+                url: isProduction ? renderUrl : 'http://localhost:3000',
+                description: isProduction ? 'Servidor de producción' : 'Servidor local'
+            },
+            {
+                url: 'http://localhost:3000',
+                description: 'Servidor local (alternativo)'
+            },
+            {
+                url: renderUrl,
+                description: 'Servidor de producción en Render'
+            }
+        ]
+    }
+};
+
+app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerDocument);
+});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, swaggerOptions));
+
 
 app.use('/', require('./routes'));
-
 
 database.initDb((err) => {
     if (err) {
@@ -35,6 +63,9 @@ database.initDb((err) => {
         app.listen(port, () => {
             console.log(`Database connected and App is running on port ${port}`);
             console.log(`Swagger docs: http://localhost:${port}/api-docs`);
+            if (isProduction) {
+                console.log(`Swagger docs (producción): ${renderUrl}/api-docs`);
+            }
         });
     }
 });

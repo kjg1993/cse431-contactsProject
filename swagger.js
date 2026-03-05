@@ -6,18 +6,18 @@ const doc = {
         description: 'API para la gestión de contactos',
         version: '1.0.0',
     },
-    host: 'localhost:3000',  
-    schemes: ['http'],
+    host: 'localhost:3000',  // Mantenemos local para generación
+    schemes: ['http', 'https'],
     basePath: '/',
-   
+    // Estos servers aparecerán en Swagger UI
     servers: [
         {
             url: 'http://localhost:3000',
-            description: 'Local server'
+            description: 'Development local server'
         },
         {
             url: 'https://cse431-contacts-8utb.onrender.com',
-            description: 'Production server on Render'
+            description: 'SProduction server on render'
         }
     ],
     definitions: {
