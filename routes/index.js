@@ -1,10 +1,12 @@
-const express = require("express")
+const router = require('express').Router();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
-const router = express.Router();
+// Ruta para la documentación
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
-router.get('/', (req, res) => {
-    res.send('Hola Kevin!!')
-});
-
+// Tus rutas de contactos
+router.use('/', require('./contacts'));
 
 module.exports = router;
