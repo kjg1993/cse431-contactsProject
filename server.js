@@ -7,7 +7,16 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 
-// CORS Middleware
+
+const isProduction = process.env.NODE_ENV === 'production';
+const renderUrl = 'https://cse431-contacts-8utb.onrender.com';
+
+if (isProduction) {
+    swaggerDocument.host = 'cse431-contacts-8utb.onrender.com';
+    swaggerDocument.schemes = ['https'];
+    console.log('🔧 Swagger configurado para producción');
+}
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -22,37 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const isProduction = process.env.NODE_ENV === 'production';
-const renderUrl = 'https://cse431-contacts-8utb.onrender.com';
-
-
-const swaggerOptions = {
-    swaggerOptions: {
-        url: '/swagger.json', 
-        servers: [
-            {
-                url: isProduction ? renderUrl : 'http://localhost:3000',
-                description: isProduction ? 'Servidor de producción' : 'Servidor local'
-            },
-            {
-                url: 'http://localhost:3000',
-                description: 'Servidor local (alternativo)'
-            },
-            {
-                url: renderUrl,
-                description: 'Servidor de producción en Render'
-            }
-        ]
-    }
-};
-
 app.get('/swagger.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(swaggerDocument);
+    res.json(swaggerDocument);
 });
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, swaggerOptions));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', require('./routes'));
 
@@ -62,6 +45,7 @@ database.initDb((err) => {
     } else {
         app.listen(port, () => {
             console.log(`Database connected and App is running on port ${port}`);
+            console.log(`Entorno: ${isProduction ? 'PRODUCCIÓN' : 'DESARROLLO'}`);
             console.log(`Swagger docs: http://localhost:${port}/api-docs`);
             if (isProduction) {
                 console.log(`Swagger docs (producción): ${renderUrl}/api-docs`);
