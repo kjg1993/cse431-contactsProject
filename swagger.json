@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Contacts API",
-    "description": "API para la gestión de contactos",
+    "description": "API for contact management",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
