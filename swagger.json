@@ -2,37 +2,16 @@
   "swagger": "2.0",
   "info": {
     "title": "Contacts API",
-    "description": "API for contact management",
+    "description": "API para la gestión de contactos",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
-  "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Development local server"
-    },
-    {
-      "url": "https://cse431-contacts-8utb.onrender.com",
-      "description": "SProduction server on render"
-    }
-  ],
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "paths": {
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/contacts": {
+    "/contacts/": {
       "get": {
         "description": "",
         "produces": [
@@ -46,14 +25,122 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                   "example": "Peter"
+                },
+                "lastName": {
+                  "example": "Parker"
+                },
+                "email": {
+                  "example": "pp.spider@gmail.com"
+                },
+                "favoriteColor": {
+                   "example": "Red"
+                },
+                "birthday": {
+                 "example": "1962-10-08"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/contacts/{id}": {
       "get": {
         "description": "",
-        "produces": [
-          "application/json"
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "Peter"
+                },
+                "lastName": {
+                  "example": "Parker"
+                },
+                "email": {
+                  "example": "pp.spider@gmail.com"
+                },
+                "favoriteColor": {
+                  "example": "Red"
+                },
+                "birthday": {
+                  "example": "1962-10-08"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -93,7 +180,7 @@
         },
         "email": {
           "type": "string",
-          "example": "jn.smith@test.com"
+          "example": "john.smith@test.com"
         },
         "favoriteColor": {
           "type": "string",
@@ -105,16 +192,32 @@
         }
       }
     },
-    "Error": {
+    "ContactResponse": {
       "type": "object",
       "properties": {
-        "message": {
+        "_id": {
           "type": "string",
-          "example": "Error message"
+          "example": "507f1f77bcf86cd799439011"
         },
-        "code": {
-          "type": "number",
-          "example": 500
+        "firstName": {
+          "type": "string",
+          "example": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Smith"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.smith@test.com"
+        },
+        "favoriteColor": {
+          "type": "string",
+          "example": "Blue"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "1990-05-15"
         }
       }
     }
